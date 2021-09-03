@@ -693,7 +693,8 @@ pipeline {
 		APIPORTAL="default"
 		APIPORTAL_COMMUNITY="Public Community"
 		API_TEST_APP="TestApp"
-		API_STAGE="integ500"
+		API_STAGE="UAT"
+		API_STAGE_PROD="PROD"
 	}
 	stages {
 		stage('Prepare') {
@@ -819,6 +820,22 @@ pipeline {
 					print("Promoting Tested API's to UAT platform")
 
 					promoteAPI(APIGW_SERVER, getStageId(APIGW_SERVER, API_STAGE), PROD_API_IDS, "UAT")
+				}
+			}
+		}
+		stage('ToProd') {
+			when {
+				expression { PROD_API_IDS.size() > 0 && API_STAGE_PROD != ""}
+			}
+			steps {
+				input("UAT Promotion Completed, Ready to deploy in Prod?")
+				script {
+					print("Publishing API to PROD GW (10.7)")
+
+					PROD_API_IDS.each{apiRef ->
+						println("publication of "+apiRef)
+						promoteAPI(APIGW_SERVER, getStageId(APIGW_SERVER, API_STAGE_PROD), PROD_API_IDS, "Production")
+					}
 				}
 			}
 		}
