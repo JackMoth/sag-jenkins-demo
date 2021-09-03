@@ -714,13 +714,11 @@ pipeline {
 							[$class: 'TextParameterDefinition', defaultValue: API_SERVER, description: 'API Runtime Container', name: 'esbServer'],
 							[$class: 'TextParameterDefinition', defaultValue: APIGW_SERVER, description: 'webMethods API Gateway', name: 'apiServer'],
 							[$class: 'TextParameterDefinition', defaultValue: API_STAGE, description: 'API Gatway Stage (optional)', name: 'apiStage'],
-							[$class: 'TextParameterDefinition', defaultValue: API_STAGE_PROD, description: 'API Gatway PROD Stage ', name: 'apiStageProd'],
 						])
 
 					API_SERVER=esbInput['esbServer']
 					APIGW_SERVER=esbInput['apiServer']
 					API_STAGE=esbInput['apiStage'];
-					API_STAGE_PROD=esbInput['apiStageProd'];
 
 					def apiInput = input(
 						id: 'apiInput', message: 'API Details', parameters: [
