@@ -731,7 +731,7 @@ pipeline {
 					APIPORTAL=apiInput['apiPortal']
 					APIPORTAL_COMMUNITY=apiInput['apCommunity']
 
-					cleanWs()
+					//cleanWs()
 
 					checkoutAPIs(GIT_ACCOUNT, GIT_REPO)
 
